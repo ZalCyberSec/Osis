@@ -25,20 +25,24 @@
 <body class="flex items-center justify-center min-h-screen p-4">
   <div id="app" class="w-full max-w-4xl">
 
-    <!-- Name Screen -->
-    <div id="name-screen" class="card p-8 text-center">
-      <h1 class="text-4xl font-bold text-gray-800 mb-4">Pemilihan Ketua OSIS</h1>
-      <p class="text-gray-600 mb-6">Masukkan Nama Lengkap Anda Untuk Memulai Voting</p>
-      <input type="text" id="user-name" placeholder="Masukkan nama lengkap"
-        class="w-80 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 mb-6"
-        onkeypress="if(event.key === 'Enter') saveUserName()">
-      <button onclick="saveUserName()" class="btn-primary text-white px-8 py-3 rounded-lg font-semibold text-lg">
-        Mulai Voting
-      </button>
-      <p class="mt-4 text-sm text-gray-500">Zal Cyber Security From Bengkulu Since 2025</p>
-    </div>
+<div id="name-screen" class="card p-8 text-center">
+  <h1 class="text-4xl font-bold text-gray-800 mb-4">Pemilihan Ketua OSIS</h1>
+  <p class="text-gray-600 mb-6">Masukkan Nama Lengkap Anda Untuk Memulai Voting</p>
 
-    <!-- Voting Screen -->
+  <div class="flex flex-col items-center gap-4">
+    <label for="user-name" class="text-gray-700 font-medium">Nama Lengkap:</label>
+    <input type="text" id="user-name" placeholder="Masukkan nama lengkap"
+      class="w-full max-w-md px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+      onkeypress="if(event.key === 'Enter') saveUserName()">
+    <button onclick="saveUserName()" 
+      class="btn-primary text-white px-8 py-3 rounded-lg font-semibold text-lg">
+      Mulai Voting
+    </button>
+  </div>
+
+  <p class="mt-4 text-sm text-gray-500">ZalOfficial Since 2025</p>
+</div>
+    
     <div id="voting-screen" class="hidden">
       <div class="card p-8 text-center mb-6">
         <h2 class="text-3xl font-bold text-gray-800">Pilih Calon Ketua OSIS</h2>
@@ -48,7 +52,7 @@
 
       <div class="grid md:grid-cols-2 gap-6">
         <div class="candidate-card card p-6 text-center cursor-pointer" onclick="selectCandidate(1)">
-          <img src="https://placehold.co/300x400" alt="Calon 1" class="w-full h-64 object-cover rounded-lg mb-4">
+          <img src="https://files.catbox.moe/fwa8s5.jpg" alt="Calon 1" class="w-full h-64 object-cover rounded-lg mb-4">
           <h3 class="text-xl font-semibold text-gray-800 mb-2">Asep</h3>
           <p class="text-gray-600 mb-4">"Maju bersama, berprestasi untuk semua"</p>
           <div class="vote-badge hidden bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">✔ Dipilih</div>
@@ -69,12 +73,10 @@
         </button>
       </div>
     </div>
-
-    <!-- Results Screen (admin only) -->
     <div id="results-screen" class="hidden">
       <div class="card p-8 text-center mb-6">
         <h2 class="text-3xl font-bold text-gray-800">Hasil Voting</h2>
-        <p class="text-gray-600">Halo <span id="result-user-name" class="font-semibold text-blue-600"></span>, ini hasil voting real-time</p>
+        <p class="text-gray-600">Halo <span id="result-user-name" class="font-semibold text-blue-600"></span>, Ini Hasil Voting Nya</p>
         <p class="text-sm text-gray-500 mt-2">Total Suara: <span id="total-votes" class="font-semibold">0</span></p>
       </div>
 
@@ -100,11 +102,10 @@
       </div>
     </div>
 
-    <!-- Thank You Screen -->
     <div id="thankyou-screen" class="hidden">
       <div class="card p-8 text-center">
         <h2 class="text-3xl font-bold text-gray-800 mb-4">Terimakasih Telah Memilih Calon Ketua OSIS 🙏</h2>
-        <p class="text-gray-600">Suara kamu sudah tersimpan dan tidak bisa diubah lagi. Created By ZalSecurity From Bengkulu</p>
+        <p class="text-gray-600">Suara kamu sudah tersimpan dan tidak bisa diubah lagi. Created By ZalOfficial</p>
       </div>
     </div>
   </div>
@@ -112,10 +113,9 @@
   <script>
     let selectedCandidate = 0;
     let userName = '';
-    const ADMIN_NAME = "admin"; // hanya username ini yg bisa lihat hasil
-    const API_URL = "https://zalstecu.crutl2f.my.id:3003/api/votes";
+    const ADMIN_NAME = "adminsma6";
+    const API_URL = "http://zalstecu.crutl2f.my.id:3003/api/votes";
 
-    // cek status vote device saat load
     window.onload = () => {
       const voted = localStorage.getItem("hasVoted");
       if (voted === "true") {
@@ -130,7 +130,7 @@
       if (!userName) return alert('Silakan masukkan nama lengkap.');
 
       if (userName.toLowerCase() === ADMIN_NAME) {
-        showResults(); // langsung ke hasil kalau admin
+        showResults();
       } else {
         showVotingScreen();
       }
